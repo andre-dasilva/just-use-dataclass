@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "dict-to-dataclass"
+version = "0.1.0"
+description = "Convert a python dictionary into a dataclass"
+authors = ["André da Silva <andre-da.silva@outlook.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+mypy = "^1.6.1"
+black = "^23.10.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
