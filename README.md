@@ -120,6 +120,10 @@ print(crazy)
 
 ## Contribute
 
+Any pull requests or issues are welcomed. If you want to contribute you can follow these steps:
+
+Just make sure to **include tests** in your PR, if you made a code adjustment
+
 1. Fork and clone the repo
 
 2. Install poetry or just pytest, mypy and black
