@@ -3,7 +3,6 @@ name: Publish to PyPI
 on:
   release:
     types: [ published ]
-    branches: [ main ]
 
 jobs:
   build-and-publish:

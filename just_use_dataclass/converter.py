@@ -36,9 +36,6 @@ def convert_std_types(field_type, value) -> typing.Any:
 
 
 def convert_list_types(field_type, value):
-    if not isinstance(value, list):
-        raise TypeError(f'Value: {value} is not a list. It is a "{type(value)}"')
-
     list_types = typing.get_args(field_type)
     if len(list_types) != 1:
         raise TypeError("Make sure to define lists like this: list[type]")
@@ -47,18 +44,21 @@ def convert_list_types(field_type, value):
 
 
 def convert_tuple_types(field_type, value):
-    if not isinstance(value, tuple):
-        raise TypeError(f'Value: {value} is not a tuple. It is a "{type(value)}"')
-
     tuple_types = typing.get_args(field_type)
-    if len(tuple_types) == 1:
+
+    if len(tuple_types) == 2 and tuple_types[1] is Ellipsis:
         return tuple(convert_types(tuple_types[0], v) for v in value)
+
+    elif len(value) != len(tuple_types):
+        raise TypeError(
+            f'Tuple "{value}" length must match with field type "{field_type}" length. '
+            "Maybe you wanted to use tuple[type, ...]"
+        )
+
+    return tuple(convert_types(t, v) for (t, v) in zip(tuple_types, value))
 
 
 def convert_dict_types(field_type, value):
-    if not isinstance(value, dict):
-        raise TypeError(f'Value: {value} is not a tuple. It is a "{type(value)}"')
-
     dict_types = typing.get_args(field_type)
     if len(dict_types) != 2:
         raise TypeError("Make sure to define dicts like this: dict[type, type]")
@@ -67,6 +67,16 @@ def convert_dict_types(field_type, value):
         convert_types(dict_types[0], k): convert_types(dict_types[1], v)
         for k, v in value.items()
     }
+
+
+def check_union_types(field_type, value):
+    union_types = typing.get_args(field_type)
+    if type(value) not in union_types:
+        raise TypeError(
+            f'Make sure Unions contain all possible values: "{union_types}" missing "{type(value)}"'
+        )
+    # We just return the value, since converting Unions would need a decision on which one to do
+    return value
 
 
 def convert_types(field_type, value) -> typing.Any:
@@ -84,7 +94,7 @@ def convert_types(field_type, value) -> typing.Any:
     elif field_type_origin is dict:
         return convert_dict_types(field_type, value)
     elif field_type_origin is typing.Union:
-        raise NotImplementedError("Unions are not supported")
+        return check_union_types(field_type, value)
 
     return convert_std_types(field_type, value)
 
@@ -94,7 +104,7 @@ T = typing.TypeVar("T")
 
 def dict_to_dataclass(data: dict, dataclass_class: type[T]) -> T:
     if not dataclasses.is_dataclass(dataclass_class):
-        raise TypeError(f"Provided class: {dataclass_class} is not a dataclass")
+        raise ValueError(f"Provided class: {dataclass_class} is not a dataclass")
 
     fields_kwargs = {}
 
