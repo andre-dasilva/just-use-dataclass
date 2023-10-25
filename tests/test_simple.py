@@ -3,7 +3,7 @@ import typing
 from dataclasses import dataclass
 from decimal import Decimal
 
-from dict_to_dataclass import dict_to_dataclass
+from just_use_dataclass import dict_to_dataclass
 
 
 @dataclass
@@ -20,12 +20,12 @@ class Simple:
 
 def test_dict_to_dataclass_simple():
     data = {
-        "a": "a",
-        "b": 1,
-        "c": 2.0,
+        "a": 1,
+        "b": "1",
+        "c": "2.0",
         "d": True,
         "e": None,
-        "f": "test",
+        "f": 42,
         "g": 2,
         "h": 39.1012,
     }
@@ -33,7 +33,7 @@ def test_dict_to_dataclass_simple():
     simple = dict_to_dataclass(data, Simple)
 
     assert isinstance(simple.a, str)
-    assert simple.a == "a"
+    assert simple.a == "1"
 
     assert isinstance(simple.b, int)
     assert simple.b == 1
@@ -47,7 +47,7 @@ def test_dict_to_dataclass_simple():
     assert simple.e is None
 
     assert isinstance(simple.f, str)
-    assert simple.f == "test"
+    assert simple.f == "42"
 
     assert isinstance(simple.g, int)
     assert simple.g == 2

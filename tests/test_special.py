@@ -1,7 +1,7 @@
 import datetime
 from dataclasses import dataclass
 
-from dict_to_dataclass import dict_to_dataclass
+from just_use_dataclass import dict_to_dataclass
 
 
 @dataclass
