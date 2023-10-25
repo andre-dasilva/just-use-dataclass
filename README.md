@@ -6,8 +6,11 @@ Simple function to convert a python dict to a dataclass.
 
 If you want to know how the library works, the best place to look at is in the [tests](./tests)
 
-In short: it converts a dictionary to a dataclass by looking at the annotations in the dataclass and converting the
-data in the dictionary to it.
+In short: it converts a dictionary to a dataclass by looking at the type annotations in the dataclass and converting the data in the dictionary to it.
+
+The library has no dependencies. Its just the python standard library. Which sometimes is all you need :-)
+
+For more advanced data conversion (or even validation) take a look at [pydantic](https://github.com/pydantic/pydantic) or [attrs](https://github.com/python-attrs/attrs)
 
 ## Installation
 
@@ -115,7 +118,7 @@ print(crazy)
 # Crazy(value={'test': {1: ['hey', None, '42']}})
 ```
 
-## Development
+## Contribute
 
 1. Fork and clone the repo
 
@@ -141,8 +144,3 @@ poetry run pytest .
 poetry run mypy .
 poetry run black .
 ```
-
-## Use in production
-
-The library is really new. if you want to contribute feel welcome.
-Otherwise don't use it in production (yet) :)
