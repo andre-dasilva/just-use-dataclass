@@ -1,5 +1,7 @@
 # just-use-dataclass
 
+[![Tests](https://github.com/andre-dasilva/just-use-dataclass/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/andre-dasilva/just-use-dataclass/actions/workflows/tests.yaml)
+
 Simple function to convert a python dict to a dataclass.
 
 If you want to know how the library works, the best place to look at is in the [tests](./tests)
