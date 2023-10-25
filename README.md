@@ -1,4 +1,4 @@
-# dict-to-dataclass
+# just-use-dataclass
 
 Simple function to convert a python dict to a dataclass.
 
