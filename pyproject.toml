@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "dict-to-dataclass"
+name = "just-use-dataclass"
 version = "0.1.0"
 description = "Convert a python dictionary into a dataclass"
 authors = ["André da Silva <andre-da.silva@outlook.com>"]
