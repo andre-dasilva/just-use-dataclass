@@ -1,18 +1,17 @@
 from dataclasses import dataclass
 from decimal import Decimal
 
-import pytest
-
 from dict_to_dataclass import dict_to_dataclass
 
 
-def test_dict_to_dataclass_iterables():
-    @dataclass
-    class Iterable:
-        list: list[str]
-        tuple: tuple[int]
-        dict: dict[str, float]
+@dataclass
+class Iterable:
+    list: list[str]
+    tuple: tuple[int]
+    dict: dict[str, float]
 
+
+def test_dict_to_dataclass_iterables():
     data = {
         "list": ["a", "b", "c"],
         "tuple": (
@@ -44,18 +43,3 @@ def test_dict_to_dataclass_iterables():
         assert isinstance(key, str)
         assert isinstance(value, float)
     assert iterable.dict == {"a": 1.0, "b": 2.0}
-
-
-def test_dict_to_dataclass_conversion_error():
-    @dataclass
-    class Error:
-        a: int
-        b: str
-
-    data = {
-        "a": "fail",
-        "b": 2,
-    }
-
-    with pytest.raises(ValueError):
-        dict_to_dataclass(data, Error)

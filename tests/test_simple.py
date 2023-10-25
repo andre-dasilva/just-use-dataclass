@@ -1,26 +1,24 @@
+import math
 import typing
 from dataclasses import dataclass
-
-import pytest
+from decimal import Decimal
 
 from dict_to_dataclass import dict_to_dataclass
 
 
+@dataclass
+class Simple:
+    a: str
+    b: int
+    c: float
+    d: bool
+    e: typing.Optional[str]
+    f: typing.Optional[str]
+    g: typing.Optional[int]
+    h: typing.Optional[Decimal]
+
+
 def test_dict_to_dataclass_simple():
-    import math
-    from decimal import Decimal
-
-    @dataclass
-    class Simple:
-        a: str
-        b: int
-        c: float
-        d: bool
-        e: typing.Optional[str]
-        f: typing.Optional[str]
-        g: typing.Optional[int]
-        h: typing.Optional[Decimal]
-
     data = {
         "a": "a",
         "b": 1,
@@ -33,6 +31,7 @@ def test_dict_to_dataclass_simple():
     }
 
     simple = dict_to_dataclass(data, Simple)
+
     assert isinstance(simple.a, str)
     assert simple.a == "a"
 
